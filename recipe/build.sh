@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ./configure --disable-debug --disable-dependency-tracking --prefix="${PREFIX}" \
-  --exec-prefix="${PREFIX}" --libdir="${PREFIX}/lib"
+  --exec-prefix="${PREFIX}" --libdir="${PREFIX}/lib" \
   || { cat config.log; exit 1;}
 make
 make check
