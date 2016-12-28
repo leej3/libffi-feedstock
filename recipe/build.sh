@@ -10,3 +10,5 @@ fi
 make
 make check
 make install
+
+mv ${PREFIX}/lib/*/include/* ${PREFIX}/include
