@@ -1,16 +1,19 @@
+{% set name = "libffi" %}
 {% set version = "3.2.1" %}
 
 package:
-  name: libffi
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: libffi-3.2.1.tar.gz
-  url: ftp://sourceware.org/pub/libffi/libffi-3.2.1.tar.gz
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: ftp://sourceware.org/pub/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha1: 280c265b789e041c02e5c97815793dfc283fb1e6
+  patches:
+    - configure_includedir_option.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win]
 
 requirements:
@@ -22,8 +25,10 @@ requirements:
 test:
   commands:
     - test -e $PREFIX/lib/libffi.so  # [linux]
-    - test -e $PREFIX/lib/libffi.a  # [osx]
+    - test -e $PREFIX/lib/libffi.a  # [unix]
     - test -e $PREFIX/lib/libffi.dylib  # [osx]
+    - test -e $PREFIX/include/ffi.h
+    - test -e $PREFIX/include/ffitarget.h
 
 about:
   home: https://sourceware.org/libffi/
