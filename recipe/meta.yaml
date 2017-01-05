@@ -9,6 +9,8 @@ source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: ftp://sourceware.org/pub/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha1: 280c265b789e041c02e5c97815793dfc283fb1e6
+  patches:
+    - configure_includedir_option.patch
 
 build:
   number: 2
