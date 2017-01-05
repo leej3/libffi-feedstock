@@ -23,7 +23,7 @@ index 9d747e8..f8f4af0 100644
  all: all-am
  
 diff --git a/libffi.pc.in b/libffi.pc.in
-index edf6fde..e3a0312 100644
+index edf6fde..0b58ac2 100644
 --- a/libffi.pc.in
 +++ b/libffi.pc.in
 @@ -2,7 +2,7 @@ prefix=@prefix@
@@ -31,7 +31,7 @@ index edf6fde..e3a0312 100644
  libdir=@libdir@
  toolexeclibdir=@toolexeclibdir@
 -includedir=${libdir}/@PACKAGE_NAME@-@PACKAGE_VERSION@/include
-+includedir=${libdir}/include
++includedir=@exec_prefix@/include
  
  Name: @PACKAGE_NAME@
  Description: Library supporting Foreign Function Interfaces
