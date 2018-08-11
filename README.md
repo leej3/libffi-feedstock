@@ -9,19 +9,24 @@ Feedstock license: BSD 3-Clause
 
 Summary: A Portable Foreign Function Interface Library.
 
+The libffi library provides a portable, high level programming interface
+to various calling conventions. This allows a programmer to call any
+function specified by a call interface description at run-time.
 
 
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/libffi-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/libffi-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/libffi-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/libffi-feedstock)
-Windows: ![](https://cdn.rawgit.com/conda-forge/conda-smithy/90845bba35bec53edac7a16638aa4d77217a3713/conda_smithy/static/disabled.svg)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/libffi-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/libffi-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/libffi-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/libffi-feedstock)
+![Windows disabled](https://img.shields.io/badge/Windows-disabled-lightgrey.svg)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libffi/badges/version.svg)](https://anaconda.org/conda-forge/libffi)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/libffi/badges/downloads.svg)](https://anaconda.org/conda-forge/libffi)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libffi-green.svg)](https://anaconda.org/conda-forge/libffi) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libffi.svg)](https://anaconda.org/conda-forge/libffi) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libffi.svg)](https://anaconda.org/conda-forge/libffi) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libffi.svg)](https://anaconda.org/conda-forge/libffi) |
 
 Installing libffi
 =================
@@ -66,6 +71,7 @@ To manage the continuous integration and simplify feedstock maintenance
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
+For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
