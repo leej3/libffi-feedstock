@@ -20,7 +20,7 @@ source:
     - windows-static.patch                                             # [win]
 
 build:
-  number: 5
+  number: 1005
   run_exports:
     # good history: https://abi-laboratory.pro/tracker/timeline/libffi/
     - {{ pin_subpackage('libffi') }}
