@@ -18,9 +18,10 @@ source:
     - 0003-Win64-Remove-two-SHORT-annotations.patch                    # [win]
     - 0004-Remove-C99-constructs.patch                                 # [win]
     - windows-static.patch                                             # [win]
+    - fix_win_libffi_pc.patch                                          # [win]
 
 build:
-  number: 1006
+  number: 1007
   run_exports:
     # good history: https://abi-laboratory.pro/tracker/timeline/libffi/
     - {{ pin_subpackage('libffi') }}
