@@ -10,15 +10,14 @@ package:
 source:
   url: https://github.com/libffi/libffi/archive/v{{ version }}.tar.gz
   sha256: 3f2f86094f5cf4c36cfe850d2fe029d01f5c2c2296619407c8ba0d8207da9a6b
-  patches:
-    - configure_includedir_option.patch
+  patches:  # [win]
+    #- configure_includedir_option.patch  # [win]
     # Windows-specific:
     - 0001-x86-MSVC-does-not-support-Complex-type.patch                # [win]
     - 0002-Don-t-define-FFI_COMPLEX_TYPEDEF-ifndef-FFI_TARGET_H.patch  # [win]
-    - 0003-Win64-Remove-two-SHORT-annotations.patch                    # [win]
-    - 0004-Remove-C99-constructs.patch                                 # [win]
-    - windows-static.patch                                             # [win]
-    - fix_win_libffi_pc.patch                                          # [win]
+    #- 0003-Win64-Remove-two-SHORT-annotations.patch                    # [win]
+    #- 0004-Remove-C99-constructs.patch                                 # [win]
+    #- windows-static.patch                                             # [win]
 
 build:
   number: 0
@@ -29,18 +28,18 @@ build:
 requirements:
   build:
     - posix                              # [win]
-    - make                               # [unix] 
-    - {{ posix }}autoconf
-    - {{ posix }}automake{{ am_version }}  # [win]
-    - {{ posix }}automake                  # [not win]
-    - {{ posix }}libtool
-    - {{ posix }}patch
-    - {{ posix }}texinfo
+    - make                               # [unix]
+    - {{posix}}autoconf
+    - {{posix}}automake{{ am_version }}  # [win]
+    - {{posix}}automake                  # [not win]
+    - {{posix}}libtool
+    - {{posix}}patch
+    - {{posix}}texinfo
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
   run:
-    - {{ native }}gcc-libs  # [win]
+    - {{native}}gcc-libs  # [win]
 
 test:
   commands:
