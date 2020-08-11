@@ -68,7 +68,7 @@ fi
 
 ./configure "${configure_args[@]}" || { cat config.log; exit 1;}
 
-cat config.log
+find . -name config.log | xargs cat
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
 make check
