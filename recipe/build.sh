@@ -22,7 +22,7 @@ configure_args=(
 
 # Windows fun
 
-if [[ $(uname -o) == "Msys" ]] ; then
+if [[ "$target_platform" == "win-64" ]] ; then
     # Many many many autotools bits hardcode Windows checks that fail when the
     # OS is our default, "msys2", rather than something starting with cygwin
     # or mingw.
@@ -60,13 +60,15 @@ configure_args+=(--build=$BUILD --host=$HOST)
 
 autoreconf -vfi
 
-if [[ $(uname) == "Linux" ]]; then
+if [[ "$target_platform" == linux* ]]; then
   # this changes the install dir from ${PREFIX}/lib64 to ${PREFIX}/lib
   sed -i 's:@toolexeclibdir@:$(libdir):g' Makefile.in */Makefile.in
   sed -i 's:@toolexeclibdir@:${libdir}:g' libffi.pc.in
 fi
 
 ./configure "${configure_args[@]}" || { cat config.log; exit 1;}
+
+cat config.log
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
 make check
