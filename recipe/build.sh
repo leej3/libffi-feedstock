@@ -3,8 +3,6 @@
 set -e -x
 shopt -s extglob
 
-export PATH=/Applications/Xcode_12_beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin:$PATH
-
 # Adopt a Unix-friendly path if we're on Windows (see bld.bat).
 [ -n "$PATH_OVERRIDE" ] && export PATH="$PATH_OVERRIDE"
 
