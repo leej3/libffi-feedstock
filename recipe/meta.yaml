@@ -23,7 +23,7 @@ build:
   number: 0
   run_exports:
     # good history: https://abi-laboratory.pro/tracker/timeline/libffi/
-    - {{ pin_subpackage('libffi') }}
+    - {{ pin_subpackage('libffi', "x.x") }}
 
 requirements:
   build:
