@@ -27,20 +27,17 @@ build:
 
 requirements:
   build:
-    - posix                              # [win]
+    - autotools_clang_conda              # [win]
     - make                               # [unix]
-    - {{posix}}autoconf
-    - {{posix}}automake{{ am_version }}  # [win]
-    - {{posix}}automake-wrapper  # [win]
-    - {{posix}}automake                  # [not win]
-    - {{posix}}libtool
-    - {{posix}}patch
+    - autoconf                           # [unix]
+    - libtool                            # [unix]
+    - patch                              # [unix]
+    - automake                           # [unix]
     - {{posix}}texinfo
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
   run:
-    - {{native}}gcc-libs  # [win]
 
 test:
   commands:

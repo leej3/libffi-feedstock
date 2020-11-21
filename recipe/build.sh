@@ -3,15 +3,8 @@
 set -e -x
 shopt -s extglob
 
-# Adopt a Unix-friendly path if we're on Windows (see bld.bat).
-[ -n "$PATH_OVERRIDE" ] && export PATH="$PATH_OVERRIDE"
-
 export CFLAGS="${CFLAGS//-fvisibility=+([! ])/}"
 export CXXFLAGS="${CXXFLAGS//-fvisibility=+([! ])/}"
-
-# Some Windows builds also need the "mixed" Library prefix $LIBRARY_PREFIX_M
-# (see bld.bat), but for this package we can keep things simple:
-[ -n "$LIBRARY_PREFIX_U" ] && PREFIX="$LIBRARY_PREFIX_U"
 
 configure_args=(
     --disable-debug
@@ -20,43 +13,9 @@ configure_args=(
     --includedir="${PREFIX}/include"
 )
 
-# Windows fun
-
-if [[ ${SUBDIR} =~ win* ]] ; then
-    # Many many many autotools bits hardcode Windows checks that fail when the
-    # OS is our default, "msys2", rather than something starting with cygwin
-    # or mingw.
-    export BUILD=$(uname -m)-pc-mingw${ARCH}
-    export HOST=$(uname -m)-pc-mingw${ARCH}
-
-    # Needed for autoreconf to work - keep version sync'ed with meta.yaml.
-    am_version=1.15
-    export ACLOCAL=aclocal-$am_version
-    export AUTOMAKE=automake-$am_version
-
-    # Special compiler wrappers. Modern autotools do OK when working with "cl"
-    # directly, but we need to preprocess an assembly (.S) file, which libffis
-    # msvcc.sh wrapper takes care of.
-    export CC="$(pwd)/msvcc.sh -m${ARCH}"
-    export CXX="$(pwd)/msvcc.sh -m${ARCH}"
-    export LD="link"
-    export CPP="cl -nologo -EP"
-    export CXXCPP="cl -nologo -EP"
-
-    # Buuut the funky wrapper breaks shared library compilation for us, I
-    # think. At least, other autotools-based builds *can* get shared libraries
-    # working, but I can't pull it off here.
-    configure_args+=(--disable-shared)
-
-    # Remove the "/GL flag, which causes two problems. First, it messes up
-    # Libtool's identification of how the linker works; it parses dumpbin
-    # output and: https://stackoverflow.com/a/11850034/3760486 . Second, it
-    # seems to break static library creation via "ar cru".
-    export CFLAGS=$(echo " $CFLAGS " |sed -e "s, [-/]GL ,,")
-    export CXXFLAGS=$(echo " $CXXFLAGS " |sed -e "s, [-/]GL ,,")
+if [[ "$target_platform" != win-* ]]; then
+  configure_args+=(--build=$BUILD --host=$HOST)
 fi
-
-configure_args+=(--build=$BUILD --host=$HOST)
 
 autoreconf -vfi
 
@@ -67,12 +26,22 @@ if [[ "$target_platform" == linux* ]]; then
 fi
 
 ./configure "${configure_args[@]}" || { cat config.log; exit 1;}
+if [[ "$target_platform" == win-64 ]]; then
+  pushd x86_64-pc-mingw64
+    patch_libtool
+    sed -i.bak 's/|-fuse-ld/|-Xclang|-fuse-ld/g' libtool
+  popd
+  sed -i.bak 's/FFI_EXTERN//g' src/types.c
+fi
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
 make check
 make install
 
-find $PREFIX/. -name '*.la' -delete
-
 # This overlaps with libgcc-ng:
 rm -rf ${PREFIX}/share/info/dir
+
+if [[ "$target_platform" == win-64 ]]; then
+  mv $PREFIX/lib/ffi.lib $PREFIX/lib/libffi.lib
+  mv $PREFIX/lib/ffi.dll.lib $PREFIX/lib/libffi.dll.lib
+fi
