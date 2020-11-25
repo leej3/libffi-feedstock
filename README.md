@@ -3,7 +3,7 @@ About libffi
 
 Home: https://sourceware.org/libffi/
 
-Package license: Custom
+Package license: MIT
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libffi-feedstock/blob/master/LICENSE.txt)
 
@@ -22,7 +22,21 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>Travis</td>
+    <td>
+      <a href="https://travis-ci.com/conda-forge/libffi-feedstock">
+        <img alt="macOS" src="https://img.shields.io/travis/com/conda-forge/libffi-feedstock/master.svg?label=macOS">
+      </a>
+    </td>
+  </tr><tr>
+    <td>Drone</td>
+    <td>
+      <a href="https://cloud.drone.io/conda-forge/libffi-feedstock">
+        <img alt="linux" src="https://img.shields.io/drone/build/conda-forge/libffi-feedstock/master.svg?label=Linux">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -177,6 +191,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@isuruf](https://github.com/isuruf/)
 * [@scopatz](https://github.com/scopatz/)
 * [@stefan-balke](https://github.com/stefan-balke/)
 
