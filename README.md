@@ -5,9 +5,13 @@ Home: https://sourceware.org/libffi/
 
 Package license: Custom
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/libffi-feedstock/blob/master/LICENSE.txt)
 
 Summary: A Portable Foreign Function Interface Library.
+
+Development: https://github.com/libffi/libffi
+
+Documentation: https://sourceware.org/libffi/
 
 The libffi library provides a portable, high level programming interface
 to various calling conventions. This allows a programmer to call any
