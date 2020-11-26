@@ -15,6 +15,9 @@ configure_args=(
 
 if [[ "$target_platform" != win-* ]]; then
   configure_args+=(--build=$BUILD --host=$HOST)
+else
+  configure_args+=(--disable-static)
+  export CPPFLAGS="$CPPFLAGS -DFFI_BUILDING_DLL"
 fi
 
 autoreconf -vfi
@@ -31,7 +34,6 @@ if [[ "$target_platform" == win-64 ]]; then
     patch_libtool
     sed -i.bak 's/|-fuse-ld/|-Xclang|-fuse-ld/g' libtool
   popd
-  sed -i.bak 's/FFI_EXTERN//g' src/types.c
 fi
 
 make -j${CPU_COUNT} ${VERBOSE_AT}
@@ -42,6 +44,5 @@ make install
 rm -rf ${PREFIX}/share/info/dir
 
 if [[ "$target_platform" == win-64 ]]; then
-  mv $PREFIX/lib/ffi.lib $PREFIX/lib/libffi.lib
   mv $PREFIX/lib/ffi.dll.lib $PREFIX/lib/libffi.dll.lib
 fi

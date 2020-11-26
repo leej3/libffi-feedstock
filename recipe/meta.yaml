@@ -16,7 +16,7 @@ source:
     - 0002-Don-t-define-FFI_COMPLEX_TYPEDEF-ifndef-FFI_TARGET_H.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # good history: https://abi-laboratory.pro/tracker/timeline/libffi/
     - {{ pin_subpackage('libffi', "x.x") }}
@@ -36,6 +36,9 @@ requirements:
   run:
 
 test:
+  requires:
+    - llvm-tools  # [win]
+    - m2-grep     # [win]
   commands:
     - test -e $PREFIX/lib/libffi${SHLIB_EXT}                       # [not win]
     - test -e $PREFIX/lib/libffi.a                                 # [not win]
@@ -45,6 +48,7 @@ test:
     - if not exist %LIBRARY_PREFIX%/lib/libffi.lib exit /b 1       # [win]
     - if not exist %LIBRARY_PREFIX%/include/ffi.h exit /b 1        # [win]
     - if not exist %LIBRARY_PREFIX%/include/ffitarget.h exit /b 1  # [win]
+    - llvm-nm %LIBRARY_PREFIX%/bin/ffi-7.dll | grep "__imp_ffi_type_void"        # [win]
 
 about:
   home: https://sourceware.org/libffi/
