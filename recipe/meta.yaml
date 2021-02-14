@@ -29,7 +29,6 @@ requirements:
     - libtool                            # [unix]
     - patch                              # [unix]
     - automake                           # [unix]
-    - {{ posix }}texinfo
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
