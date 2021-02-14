@@ -9,6 +9,7 @@ export CXXFLAGS="${CXXFLAGS//-fvisibility=+([! ])/}"
 configure_args=(
     --disable-debug
     --disable-dependency-tracking
+    --disable-docs
     --prefix="${PREFIX}"
     --includedir="${PREFIX}/include"
 )
